@@ -1,0 +1,17 @@
+Name: Human-Default
+Species: 1
+Parts: []
+ColorSet:
+  Species: 1
+  Name: Default
+  SourceColorPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_ColorMap.png
+  SourceMetallicPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_MetallicMap.png
+  SourceSmoothnessPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_SmoothnessMap.png
+  SourceReflectionPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_ReflectionMap.png
+  SourceEmissionPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_EmissionMap.png
+  SourceOpacityPath: Assets/Synty/Tools/SidekickCharacters/Resources/Textures/T_OpacityMap.png
+ColorRows: []
+BlendShapes:
+  BodyTypeValue: 100
+  BodySizeValue: 80
+  MuscleValue: -50
