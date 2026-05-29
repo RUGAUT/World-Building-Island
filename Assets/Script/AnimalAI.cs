@@ -37,6 +37,14 @@ public class AnimalAI : MonoBehaviour
     private bool enHit = false;
     private float finHitChrono = 0f;
 
+    [Header("VFX / Effets")]
+    [Tooltip("Le préfabriqué de particules à jouer lors d'un dégât (ex: sang, étincelles)")]
+    public GameObject vfxDegatsPrefab;
+    [Tooltip("Optionnel : Un point précis sur l'animal (ex: le torse) où faire apparaître le VFX. Si vide, apparaît au centre de l'animal.")]
+    public Transform pointSpawnVFX;
+    [Tooltip("Temps en secondes avant que le VFX ne soit supprimé de la scène")]
+    public float dureeVieVFX = 2f;
+
     [Header("Animations")]
     public int nombreDeIdles = 3;
 
@@ -62,7 +70,6 @@ public class AnimalAI : MonoBehaviour
 
     void Update()
     {
-        // Si l'animal est mort, on ne fait plus rien
         if (estMort) return;
 
         if (enHit)
@@ -95,12 +102,23 @@ public class AnimalAI : MonoBehaviour
         MettreAJourAnimations();
     }
 
-    // Modification de PrendreDegats pour inclure la mort
     public void PrendreDegats(float degats)
     {
         if (estMort) return;
 
         pointsDeVie -= degats;
+
+        // --- APPARITION DU VFX ---
+        if (vfxDegatsPrefab != null)
+        {
+            // Si aucun point de spawn n'est défini, on prend la position de l'animal légèrement surélevée
+            Vector3 positionSpawn = pointSpawnVFX != null ? pointSpawnVFX.position : transform.position + Vector3.up;
+
+            // Instanciation et destruction automatique du VFX
+            GameObject vfxInstance = Instantiate(vfxDegatsPrefab, positionSpawn, Quaternion.identity);
+            Destroy(vfxInstance, dureeVieVFX);
+        }
+        // -------------------------
 
         if (pointsDeVie <= 0)
         {
@@ -131,22 +149,16 @@ public class AnimalAI : MonoBehaviour
     void Mourir()
     {
         estMort = true;
-
-        // Arrêt total de l'IA
         agent.isStopped = true;
-        agent.enabled = false; // Désactiver pour éviter les collisions fantômes du NavMesh
+        agent.enabled = false;
 
-        // Désactivation des triggers de combat
         if (attackHitbox != null) attackHitbox.enabled = false;
 
-        // Jouer l'animation de mort
+        enAttaque = false;
+        anim.SetBool("IsAttacking", false);
+
         anim.SetTrigger("Die");
-
-        // Optionnel : Détruire le script après un délai ou laisser le corps
-        // Destroy(gameObject, 10f); 
     }
-
-    // ... (Le reste de tes méthodes GererComportement, Attaquer, etc. restent inchangées) ...
 
     void GererComportement()
     {
@@ -267,7 +279,7 @@ public class AnimalAI : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        if (estMort) return; // Ne pas dessiner les gizmos si mort
+        if (estMort) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rayonDeBalade);
         Gizmos.color = Color.blue;

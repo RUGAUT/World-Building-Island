@@ -1,5 +1,5 @@
 using UnityEngine;
-using Invector.vCharacterController; // --- MODIFICATION : Ajout de cet using pour accéder à vThirdPersonController
+using Invector.vCharacterController;
 
 public class WeaponSwitcher : MonoBehaviour
 {
@@ -10,13 +10,11 @@ public class WeaponSwitcher : MonoBehaviour
 
     private bool isEquipped = false;
 
-    // --- MODIFICATIONS ---
     private Weapon weaponScript; // Référence au script Weapon sur l'objet de l'arme
     private vThirdPersonController playerController; // Référence au contrôleur du joueur
 
     void Start()
     {
-        // --- MODIFICATION : Récupération des références au démarrage ---
         // On cherche le script Weapon sur l'objet de l'arme
         if (weapon != null)
         {
@@ -45,7 +43,6 @@ public class WeaponSwitcher : MonoBehaviour
         if (isEquipped)
         {
             AttachWeapon(handSocket);
-            // --- MODIFICATION : On informe le contrôleur qu'une arme est équipée ---
             if (playerController != null && weaponScript != null)
             {
                 playerController.SetCurrentWeapon(weaponScript);
@@ -54,7 +51,6 @@ public class WeaponSwitcher : MonoBehaviour
         else
         {
             AttachWeapon(backSocket);
-            // --- MODIFICATION : On informe le contrôleur qu'aucune arme n'est équipée ---
             if (playerController != null)
             {
                 playerController.SetCurrentWeapon(null);
@@ -64,10 +60,7 @@ public class WeaponSwitcher : MonoBehaviour
 
     void AttachWeapon(Transform targetSocket)
     {
-        // On change le parent de l'arme
         weapon.transform.SetParent(targetSocket);
-
-        // On remet la position et la rotation à zéro par rapport au socket
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
     }

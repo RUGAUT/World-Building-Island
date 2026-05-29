@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projet Unity\\World Building Island\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\projet unity\\world building island\\assets\\corbeil\\invector-3rdpersoncontroller_lite\\scripts\\charactercontroller\\vthirdpersoninput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\corbeil\\invector-3rdpersoncontroller_lite\\scripts\\charactercontroller\\vthirdpersoninput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\projet unity\\world building island\\assets\\corbeil\\invector-3rdpersoncontroller_lite\\scripts\\charactercontroller\\vthirdpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\corbeil\\invector-3rdpersoncontroller_lite\\scripts\\charactercontroller\\vthirdpersoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\projet unity\\world building island\\assets\\script\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\projet unity\\world building island\\assets\\script\\weaponswitcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\weaponswitcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "vThirdPersonController.cs",
+              "DocumentMoniker": "D:\\Projet Unity\\World Building Island\\Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonController.cs",
+              "RelativeDocumentMoniker": "Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonController.cs",
+              "ToolTip": "D:\\Projet Unity\\World Building Island\\Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonController.cs",
+              "RelativeToolTip": "Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonController.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAwwOIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T06:49:50.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "vThirdPersonInput.cs",
+              "DocumentMoniker": "D:\\Projet Unity\\World Building Island\\Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonInput.cs",
+              "RelativeDocumentMoniker": "Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonInput.cs",
+              "ToolTip": "D:\\Projet Unity\\World Building Island\\Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonInput.cs",
+              "RelativeToolTip": "Assets\\Corbeil\\Invector-3rdPersonController_LITE\\Scripts\\CharacterController\\vThirdPersonInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T06:49:33.857Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WeaponSwitcher.cs",
+              "DocumentMoniker": "D:\\Projet Unity\\World Building Island\\Assets\\Script\\WeaponSwitcher.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\WeaponSwitcher.cs",
+              "ToolTip": "D:\\Projet Unity\\World Building Island\\Assets\\Script\\WeaponSwitcher.cs",
+              "RelativeToolTip": "Assets\\Script\\WeaponSwitcher.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA/wEIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T06:34:31.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Weapon.cs",
+              "DocumentMoniker": "D:\\Projet Unity\\World Building Island\\Assets\\Script\\Weapon.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Weapon.cs",
+              "ToolTip": "D:\\Projet Unity\\World Building Island\\Assets\\Script\\Weapon.cs",
+              "RelativeToolTip": "Assets\\Script\\Weapon.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAwwDcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-29T06:34:05.155Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

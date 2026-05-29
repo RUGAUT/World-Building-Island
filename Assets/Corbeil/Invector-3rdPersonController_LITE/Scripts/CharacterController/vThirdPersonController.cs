@@ -5,19 +5,16 @@ namespace Invector.vCharacterController
     public class vThirdPersonController : vThirdPersonAnimator
     {
         [Header("--- COMBO SETTINGS ---")]
-        public int comboCount = 0;        // Compteur actuel du combo
-        public int maxCombo = 3;          // Nombre total d'attaques (0, 1, 2...)
-        public float comboResetTime = 1f; // Temps avant que le combo ne se réinitialise
-        private float lastAttackTime;     // Timer interne
+        public int comboCount = 0;
+        public int maxCombo = 4;          // Modifié à 4 pour permettre 4 attaques
+        public float comboResetTime = 1.5f; // Augmenté pour laisser le temps de cliquer
+        private float lastAttackTime;
 
         [Header("--- CROUCH SETTINGS ---")]
-        private bool isCrouching = false;  // État d'accroupissement
-        private bool isCrouchWalking = false; // État de marche accroupie
-
-        // Ajoutons une variable pour suivre l'état précédent et éviter les mises à jour inutiles
+        private bool isCrouching = false;
+        private bool isCrouchWalking = false;
         private bool wasMoving = false;
 
-        // --- MODIFICATION : Référence à l'arme actuellement équipée ---
         private Weapon currentWeapon;
 
         public virtual void ControlAnimatorRootMotion()
@@ -62,7 +59,6 @@ namespace Invector.vCharacterController
 
             if (validInput)
             {
-                // calculate input smooth
                 inputSmooth = Vector3.Lerp(inputSmooth, input, (isStrafing ? strafeSpeed.movementSmooth : freeSpeed.movementSmooth) * Time.deltaTime);
 
                 Vector3 dir = (isStrafing && (!isSprinting || sprintOnlyFree == false) || (freeSpeed.rotateWithCamera && input == Vector3.zero)) && rotateTarget ? rotateTarget.forward : moveDirection;
@@ -80,12 +76,9 @@ namespace Invector.vCharacterController
 
             if (referenceTransform && !rotateByWorld)
             {
-                //get the right-facing direction of the referenceTransform
                 var right = referenceTransform.right;
                 right.y = 0;
-                //get the forward direction relative to referenceTransform Right
                 var forward = Quaternion.AngleAxis(-90, Vector3.up) * right;
-                // determine the direction the player will face based on input and the referenceTransform's right and forward directions
                 moveDirection = (inputSmooth.x * right) + (inputSmooth.z * forward);
             }
             else
@@ -130,52 +123,45 @@ namespace Invector.vCharacterController
 
         public virtual void Jump()
         {
-            // trigger jump behaviour
             jumpCounter = jumpTimer;
             isJumping = true;
 
-            // trigger jump animations
             if (input.sqrMagnitude < 0.1f)
                 animator.CrossFadeInFixedTime("Jump", 0.1f);
             else
                 animator.CrossFadeInFixedTime("JumpMove", .2f);
         }
 
-        // --- SYSTÈME D'ATTAQUE AVEC COMBO (MODIFIÉ) ---
+        // --- SYSTÈME D'ATTAQUE ---
         public virtual void Attack()
         {
-            // --- MODIFICATION : On vérifie d'abord si une arme est équipée ---
             if (currentWeapon == null)
             {
                 Debug.Log("Aucune arme équipée, impossible d'attaquer.");
-                return; // On arrête la fonction ici si aucune arme
+                return;
             }
 
-            // On ne peut attaquer que si on est au sol et qu'on ne saute pas
             if (isGrounded && !isJumping)
             {
-                // 1. Si on a attendu trop longtemps depuis la dernière attaque, on remet le combo à 0
                 if (Time.time > lastAttackTime + comboResetTime)
                 {
                     comboCount = 0;
                 }
 
-                // 2. On envoie l'ID (0, 1 ou 2) à l'Animator pour qu'il choisisse la bonne animation
+                // Configuration de l'ID pour l'Animator
                 animator.SetInteger("AttackID", comboCount);
 
-                // 3. On déclenche l'attaque
+                // NETTOYAGE DU TRIGGER : Empêche le bug du bouton bloqué
+                animator.ResetTrigger("Attack");
                 animator.SetTrigger("Attack");
 
-                // --- MODIFICATION : On informe l'arme que l'attaque commence ---
+                // Lancement des dégâts de l'arme
                 currentWeapon.StartAttack();
-
-                // 4. On met à jour le temps de la dernière attaque
                 lastAttackTime = Time.time;
 
-                // 5. On prépare le prochain coup
+                // Incrémentation du combo pour le prochain coup
                 comboCount++;
 
-                // 6. Si on dépasse le nombre max d'animations, on revient à 0
                 if (comboCount >= maxCombo)
                 {
                     comboCount = 0;
@@ -183,73 +169,48 @@ namespace Invector.vCharacterController
             }
         }
 
-        // --- FONCTION D'ACCROUPISSSEMENT ---
         public virtual void Crouch()
         {
-            // Bascule entre l'état debout et accroupi
             isCrouching = !isCrouching;
-
-            // Met à jour le paramètre de l'Animator
             animator.SetBool("IsCrouching", isCrouching);
 
-            // Ajuster la vitesse de déplacement si nécessaire
             if (isCrouching)
             {
-                // Réduire la vitesse de déplacement lorsque accroupi
-                freeSpeed.walkSpeed = 1.5f;  // Vitesse de marche accroupie
-                strafeSpeed.walkSpeed = 1.5f;  // Vitesse de marche latérale accroupie
+                freeSpeed.walkSpeed = 1.5f;
+                strafeSpeed.walkSpeed = 1.5f;
             }
             else
             {
-                // Restaurer la vitesse de déplacement normale
-                freeSpeed.walkSpeed = 2.5f;  // Vitesse de marche normale
-                strafeSpeed.walkSpeed = 2.5f;  // Vitesse de marche latérale normale
+                freeSpeed.walkSpeed = 2.5f;
+                strafeSpeed.walkSpeed = 2.5f;
             }
         }
 
-        // Méthode pour mettre à jour l'état de marche accroupie
         protected virtual void UpdateCrouchWalking()
         {
-            // Vérifie si le personnage est en mouvement
             bool isMoving = input.sqrMagnitude > 0.1f;
-
-            // Détermine si le personnage est en marche accroupie (accroupi ET en mouvement)
             bool newCrouchWalking = isCrouching && isMoving;
 
-            // Met à jour l'état seulement s'il a changé
             if (newCrouchWalking != isCrouchWalking)
             {
                 isCrouchWalking = newCrouchWalking;
                 animator.SetBool("IsCrouchWalking", isCrouchWalking);
-
-                // Debug pour vérifier les changements d'état
-                Debug.Log($"IsCrouchWalking: {isCrouchWalking}, IsCrouching: {isCrouching}, IsMoving: {isMoving}");
             }
 
             wasMoving = isMoving;
         }
 
-        // Surcharge de la méthode UpdateAnimator pour inclure la mise à jour de la marche accroupie
         public override void UpdateAnimator()
         {
             base.UpdateAnimator();
             UpdateCrouchWalking();
         }
 
-        // --- MODIFICATION : Nouvelles fonctions pour gérer l'arme actuelle ---
-
-        /// <summary>
-        /// Appelé par le WeaponSwitcher pour définir l'arme actuellement active.
-        /// </summary>
-        /// <param name="weapon">Le script de l'arme, ou null si aucune arme.</param>
         public void SetCurrentWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
         }
 
-        /// <summary>
-        /// Cette fonction sera appelée par un événement d'animation à la fin de chaque attaque.
-        /// </summary>
         public void OnAttackAnimationEnd()
         {
             if (currentWeapon != null)
@@ -258,13 +219,8 @@ namespace Invector.vCharacterController
             }
         }
 
-        // --- AJOUT : Fonction pour déclencher l'animation de prise de dégâts ---
-        /// <summary>
-        /// Appelée par un ennemi pour déclencher l'animation de prise de dégâts.
-        /// </summary>
         public void GetHit()
         {
-            // Déclenche l'animation de prise de dégâts
             animator.SetTrigger("GetHitTrigger");
         }
     }

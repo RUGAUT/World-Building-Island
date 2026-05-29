@@ -12,8 +12,8 @@ namespace Invector.vCharacterController
         public KeyCode jumpInput = KeyCode.Space;
         public KeyCode strafeInput = KeyCode.Tab;
         public KeyCode sprintInput = KeyCode.LeftShift;
-        public KeyCode attackInput = KeyCode.Mouse0; // Clic Gauche par défaut
-        public KeyCode crouchInput = KeyCode.LeftControl; // Ajout de la touche Ctrl pour s'accroupir
+        public KeyCode attackInput = KeyCode.Mouse0;
+        public KeyCode crouchInput = KeyCode.LeftControl;
 
         [Header("Camera Input")]
         public string rotateCameraXInput = "Mouse X";
@@ -33,20 +33,20 @@ namespace Invector.vCharacterController
 
         protected virtual void FixedUpdate()
         {
-            cc.UpdateMotor();               // updates the ThirdPersonMotor methods
-            cc.ControlLocomotionType();     // handle the controller locomotion type and movespeed
-            cc.ControlRotationType();       // handle the controller rotation type
+            cc.UpdateMotor();
+            cc.ControlLocomotionType();
+            cc.ControlRotationType();
         }
 
         protected virtual void Update()
         {
-            InputHandle();                  // update the input methods
-            cc.UpdateAnimator();            // updates the Animator Parameters
+            InputHandle();
+            cc.UpdateAnimator();
         }
 
         public virtual void OnAnimatorMove()
         {
-            cc.ControlAnimatorRootMotion(); // handle root motion animations 
+            cc.ControlAnimatorRootMotion();
         }
 
         #region Basic Locomotion Inputs
@@ -81,8 +81,8 @@ namespace Invector.vCharacterController
             SprintInput();
             StrafeInput();
             JumpInput();
-            CrouchInput(); // Ajout de la détection d'entrée pour l'accroupissement
-            AttackInput(); // Appel de la fonction d'attaque
+            CrouchInput();
+            AttackInput();
         }
 
         public virtual void MoveInput()
@@ -131,7 +131,6 @@ namespace Invector.vCharacterController
                 cc.Sprint(false);
         }
 
-        // Ajout de la méthode pour gérer l'entrée d'accroupissement
         protected virtual void CrouchInput()
         {
             if (Input.GetKeyDown(crouchInput))
@@ -151,7 +150,6 @@ namespace Invector.vCharacterController
                 cc.Jump();
         }
 
-        // --- DÉTECTION DU CLIC POUR ATTAQUER ---
         protected virtual void AttackInput()
         {
             if (Input.GetKeyDown(attackInput))
